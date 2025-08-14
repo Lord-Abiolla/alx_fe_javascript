@@ -18,7 +18,7 @@ demonstrating the core capabilities of JavaScript for building interactive web p
 
 
 
-### Project Two
+### 2. Project Two
 
 ##### Task Description:
 
@@ -29,7 +29,7 @@ across sessions.
 
 
 
-### Project Three
+### 3. Project Three
 
 ##### Task Description:
 This task involves setting up a simple simulation of server interactions to sync local quote data and resolve conflicts.
