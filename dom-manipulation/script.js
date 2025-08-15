@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const randomQuote = document.getElementById('randomQuote');
     randomQuote.addEventListener('click', () => {
         document.querySelector('.quote').style.display = 'block';
-        displayRandomQuote(quotes);
+        showRandomQuote(quotes);
     });
 
     const newQuote = document.getElementById('addQuote');
@@ -38,7 +38,7 @@ let quotes = [
     }
 ];
 
-function displayRandomQuote(quotes) {
+function showRandomQuote(quotes) {
     const form = document.querySelector('.add-quote');
 
     if (form.style.display === 'flex') {
@@ -55,9 +55,9 @@ function displayRandomQuote(quotes) {
 
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-    document.querySelector('.category').textContent = randomQuote.category;
+    document.querySelector('.category').innerHTML = randomQuote.category;
     document.querySelector('.category').style.color = 'purple';
-    document.querySelector('.quote-text').textContent = randomQuote.text;
+    document.querySelector('.quote-text').innerHTML = randomQuote.text;
 }
 
 function addQuote() {
