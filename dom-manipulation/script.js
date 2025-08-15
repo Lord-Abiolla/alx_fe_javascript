@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const randomQuote = document.getElementById('randomQuote');
     randomQuote.addEventListener('click', () => {
         document.querySelector('.quote').style.display = 'block';
-        showRandomQuote(quotes);
+        displayRandomQuote(quotes);
     });
 
     const newQuote = document.getElementById('addQuote');
@@ -38,7 +38,7 @@ let quotes = [
     }
 ];
 
-function showRandomQuote(quotes) {
+function displayRandomQuote(quotes) {
     const form = document.querySelector('.add-quote');
 
     if (form.style.display === 'flex') {
