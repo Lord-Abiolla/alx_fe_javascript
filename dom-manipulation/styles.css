@@ -1,0 +1,113 @@
+body {
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 5em;
+}
+
+button {
+    color: aliceblue;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px 25px;
+    border-radius: 10px;
+    background: #5f85c2;
+    font-size: 16px;
+    background: radial-gradient(circle, rgba(95, 133, 194, 1) 29%, rgba(100, 122, 179, 1) 96%);
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+@media(max-width: 1000px) {
+    body {
+        flex-direction: column;
+    }
+
+    .button-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+}
+
+hr {
+    max-width: 50%;
+}
+
+#quoteDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.new-quote {
+    display: none;
+}
+
+.available-quote {
+    display: none;
+}
+
+.quote {
+    display: none;
+    position: relative;
+    border-radius: 30px;
+    background-color: rgb(244, 246, 248);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    padding: 70px;
+    width: 20%;
+}
+
+.quote-text {
+    margin-top: 40px;
+}
+
+.category {
+    margin-top: 30px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+}
+
+.add-quote {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: none;
+    flex-direction: column;
+    gap: 30px;
+    padding: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(244, 246, 248);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.add-quote input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #dad2d2;
+    outline: none;
+}
