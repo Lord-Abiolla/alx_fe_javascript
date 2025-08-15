@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const randomQuoteBtn = document.getElementById('randomQuote');
     const newQuoteBtn = document.getElementById('addQuote');
-    const addQuoteForm = document.querySelector('.add-quote');
     const quoteContainer = document.querySelector('.quote');
 
     randomQuoteBtn.addEventListener('click', () => {
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     newQuoteBtn.addEventListener('click', () => {
         quoteContainer.style.display = 'none';
-        addQuoteForm.style.display = 'flex';
+        createAddQuoteForm();
     });
 
     const formButton = addQuoteForm.querySelector('button');
@@ -19,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let quotes = [];
+
+function createAddQuoteForm() {
+    const addQuoteForm = document.querySelector('.add-quote');
+    addQuoteForm.style.display = 'flex';
+}
 
 function showRandomQuote(quotes) {
     const form = document.querySelector('.add-quote');
