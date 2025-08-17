@@ -142,13 +142,14 @@ function populateCategories() {
     const categoryFilter = document.getElementById('categoryFilter');
     categoryFilter.innerHTML = '<option value="all">All Categories</option>';
 
-    quotes.forEach(quote => {
+    quotes.map(quote => {
         const option = document.createElement('option');
         option.value = quote.category;
         option.textContent = quote.category;
         categoryFilter.appendChild(option);
     });
 }
+
 
 function filterQuotes() {
     const selectedCategory = document.getElementById('categoryFilter').value;
