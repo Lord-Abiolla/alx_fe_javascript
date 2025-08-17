@@ -119,3 +119,19 @@ function exportQuotesToJSONFile() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
+
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+
+    fileReader.onload = function (e) {
+        const importedQuotes = JSON.parse(e.target.result);
+        quotes.push(...importedQuotes);
+        localStorage.setItem("quotes", JSON.stringify(quotes));
+        alert('Quotes imported successfully!');
+    };
+
+    if (event.target.files.length > 0) {
+        fileReader.readAsText(event.target.files[0]);
+    }
+}
+
