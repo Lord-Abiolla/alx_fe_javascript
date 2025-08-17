@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const quoteContainer = document.querySelector('.quote');
     const addQuoteForm = document.querySelector('.add-quote');
     const formButton = addQuoteForm.querySelector('button');
+    const exportQuotesButton = document.getElementById('exportQuotes');
 
     randomQuoteBtn.addEventListener('click', () => {
         quoteContainer.style.display = 'block';
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         addQuote();
     });
+
+    exportQuotesButton.addEventListener('click', exportQuotesToJSONFile);
 });
 
 let quotes = [];
@@ -32,7 +35,7 @@ function loadQuotes() {
     if (storedQuotes) {
         quotes = JSON.parse(storedQuotes);
     } else {
-        quote = [];
+        quotes = [];
     }
 }
 
@@ -95,4 +98,24 @@ function addQuote() {
 
     document.getElementById("newQuoteCategory").value = "";
     document.getElementById("newQuoteText").value = "";
+}
+
+function exportQuotesToJSONFile() {
+
+    const data = localStorage.getItem("quotes");
+
+    const blob = new Blob([data], {
+        type: 'application/json'
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "quotes.json";
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
