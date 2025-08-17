@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    fetchQuotesFromServer();
     loadQuotes();
     populateCategories();
 
@@ -137,10 +138,14 @@ function importFromJsonFile(event) {
 }
 
 function populateCategories() {
-    const quotes = JSON.parse(localStorage.getItem("quotes"));
+    const quotes = JSON.parse(localStorage.getItem("quotes")) || [];
 
     const categoryFilter = document.getElementById('categoryFilter');
     categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+
+    if (quotes.length === 0) {
+        return;
+    }
 
     quotes.map(quote => {
         const option = document.createElement('option');
@@ -149,7 +154,6 @@ function populateCategories() {
         categoryFilter.appendChild(option);
     });
 }
-
 
 function filterQuotes() {
     const selectedCategory = document.getElementById('categoryFilter').value;
@@ -170,7 +174,6 @@ function quoteDisplay(quotes, selectedCategory) {
     if (quotes.length > 0) {
         quotes.forEach(q => {
             if (selectedCategory === "all") {
-                // Show ONLY the quote text
                 const textElement = document.createElement('p');
                 textElement.classList.add('quote-text');
                 textElement.textContent = q.text;
@@ -193,4 +196,18 @@ function quoteDisplay(quotes, selectedCategory) {
 
         container.style.display = 'block';
     }
+}
+
+async function fetchQuotesFromServer() {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+
+    const response = await fetch(url)
+    const data = await response.json();
+
+    const quotesBody = data.slice(0, 10).map(item => ({
+        category: item.title,
+        text: item.body
+    }));
+
+    localStorage.setItem("quotes", JSON.stringify(quotesBody));
 }
