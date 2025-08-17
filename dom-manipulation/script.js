@@ -236,3 +236,39 @@ async function postQuotesToServer(newQuote) {
         console.error("Error saving quote", error);
     }
 }
+
+function saveQuotesToLocal(quotes) {
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+}
+
+function loadQuotesFromLocal() {
+    const stored = localStorage.getItem("quotes");
+    return stored ? JSON.parse(stored) : [];
+}
+
+
+async function syncQuotes() {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Server eror: ${response.status}`);
+        }
+
+        const serverQuotes = await response.json();
+        const localQuotes = loadQuotesFromLocal();
+
+        if (JSON.stringify(serverQuotes) !== JSON.stringify(localQuotes)) {
+            console.log("Syncing...");
+            saveQuotesToLocal(serverQuotes);
+        }
+
+        quotes = serverQuotes;
+
+        console.log("Sync complete");
+        return quotes;
+    } catch (error) {
+        console.error("Sync failed", error);
+    }
+}
