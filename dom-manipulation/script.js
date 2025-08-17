@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     loadQuotes();
+    populateCategories();
 
     const randomQuoteBtn = document.getElementById('randomQuote');
     const newQuoteBtn = document.getElementById('addQuote');
@@ -132,6 +133,61 @@ function importFromJsonFile(event) {
 
     if (event.target.files.length > 0) {
         fileReader.readAsText(event.target.files[0]);
+    }
+}
+
+function populateCategories() {
+    const quotes = JSON.parse(localStorage.getItem("quotes"));
+
+    const categoryFilter = document.getElementById('categoryFilter');
+    categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+
+    quotes.forEach(quote => {
+        const option = document.createElement('option');
+        option.value = quote.category;
+        option.textContent = quote.category;
+        categoryFilter.appendChild(option);
+    });
+}
+
+function filterQuotes() {
+    const selectedCategory = document.getElementById('categoryFilter').value;
+    const quotes = JSON.parse(localStorage.getItem("quotes")) || [];
+
+    let filteredQuotes = quotes;
+
+    if (selectedCategory !== "all") {
+        filteredQuotes = quotes.filter(quote => quote.category === selectedCategory);
+    }
+
+    const container = document.querySelector('.quote');
+    container.innerHTML = "";
+
+    if (filteredQuotes.length > 0) {
+        filteredQuotes.forEach(q => {
+            if (selectedCategory === "all") {
+                // Show ONLY the quote text
+                const textElement = document.createElement('p');
+                textElement.classList.add('quote-text');
+                textElement.textContent = q.text;
+
+                container.appendChild(textElement);
+            } else {
+                const categoryElement = document.createElement('h4');
+                categoryElement.classList.add('category');
+                categoryElement.style.color = 'purple';
+                categoryElement.textContent = q.category;
+
+                const textElement = document.createElement('p');
+                textElement.classList.add('quote-text');
+                textElement.textContent = q.text;
+
+                container.appendChild(categoryElement);
+                container.appendChild(textElement);
+            }
+        });
+
+        container.style.display = 'block';
     }
 }
 
