@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         exportQuotesButton.addEventListener('click', exportQuotesToJSONFile);
 
         console.log("Initialization complete");
+        alert("Quotes sync with server");
     } catch (err) {
         console.error("Error during initialization:", err);
     }
