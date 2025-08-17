@@ -160,12 +160,15 @@ function filterQuotes() {
     if (selectedCategory !== "all") {
         filteredQuotes = quotes.filter(quote => quote.category === selectedCategory);
     }
+    quoteDisplay(filteredQuotes, selectedCategory);
+}
 
+function quoteDisplay(quotes, selectedCategory) {
     const container = document.querySelector('.quote');
     container.innerHTML = "";
 
-    if (filteredQuotes.length > 0) {
-        filteredQuotes.forEach(q => {
+    if (quotes.length > 0) {
+        quotes.forEach(q => {
             if (selectedCategory === "all") {
                 // Show ONLY the quote text
                 const textElement = document.createElement('p');
@@ -191,4 +194,3 @@ function filterQuotes() {
         container.style.display = 'block';
     }
 }
-
