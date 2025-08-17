@@ -1,33 +1,50 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await syncQuotes();
+        await fetchQuotesFromServer();
 
-    fetchQuotesFromServer();
-    loadQuotes();
-    populateCategories();
+        loadQuotes();
+        populateCategories();
 
-    const randomQuoteBtn = document.getElementById('randomQuote');
-    const newQuoteBtn = document.getElementById('addQuote');
-    const quoteContainer = document.querySelector('.quote');
-    const addQuoteForm = document.querySelector('.add-quote');
-    const formButton = addQuoteForm.querySelector('button');
-    const exportQuotesButton = document.getElementById('exportQuotes');
+        setInterval(async () => {
+            try {
+                await syncQuotes();
+                console.log("Periodic sync complete");
+            } catch (err) {
+                console.error("Periodic sync failed:", err);
+            }
+        }, 30000);
 
-    randomQuoteBtn.addEventListener('click', () => {
-        quoteContainer.style.display = 'block';
-        showRandomQuote(quotes);
-    });
+        const randomQuoteBtn = document.getElementById('randomQuote');
+        const newQuoteBtn = document.getElementById('addQuote');
+        const quoteContainer = document.querySelector('.quote');
+        const addQuoteForm = document.querySelector('.add-quote');
+        const formButton = addQuoteForm.querySelector('button');
+        const exportQuotesButton = document.getElementById('exportQuotes');
 
-    newQuoteBtn.addEventListener('click', () => {
-        quoteContainer.style.display = 'none';
-        createAddQuoteForm();
-    });
+        randomQuoteBtn.addEventListener('click', () => {
+            quoteContainer.style.display = 'block';
+            showRandomQuote(quotes);
+        });
 
-    formButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        addQuote();
-    });
+        newQuoteBtn.addEventListener('click', () => {
+            quoteContainer.style.display = 'none';
+            createAddQuoteForm();
+        });
 
-    exportQuotesButton.addEventListener('click', exportQuotesToJSONFile);
+        formButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            addQuote();
+        });
+
+        exportQuotesButton.addEventListener('click', exportQuotesToJSONFile);
+
+        console.log("Initialization complete");
+    } catch (err) {
+        console.error("Error during initialization:", err);
+    }
 });
+
 
 let quotes = [];
 
@@ -272,7 +289,3 @@ async function syncQuotes() {
         console.error("Sync failed", error);
     }
 }
-document.addEventListener('DOMContentLoaded', async () => {
-    await syncQuotes();
-    setInterval(syncQuotes, 30000);
-});
