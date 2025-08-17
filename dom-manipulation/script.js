@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    loadQuotes();
+
     const randomQuoteBtn = document.getElementById('randomQuote');
     const newQuoteBtn = document.getElementById('addQuote');
     const quoteContainer = document.querySelector('.quote');
@@ -22,6 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let quotes = [];
+
+function loadQuotes() {
+    const storedQuotes = localStorage.getItem("quotes");
+
+    if (storedQuotes) {
+        quotes = JSON.parse(storedQuotes);
+    } else {
+        quote = [];
+    }
+}
 
 function createAddQuoteForm() {
     const addQuoteForm = document.querySelector('.add-quote');
@@ -61,6 +74,7 @@ function addQuote() {
 
     const newQuote = { category, text };
     quotes.push(newQuote);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
 
     quoteContainer.innerHTML = '';
 
