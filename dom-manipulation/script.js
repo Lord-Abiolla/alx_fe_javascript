@@ -272,3 +272,7 @@ async function syncQuotes() {
         console.error("Sync failed", error);
     }
 }
+document.addEventListener('DOMContentLoaded', async () => {
+    await syncQuotes();
+    setInterval(syncQuotes, 30000);
+});
