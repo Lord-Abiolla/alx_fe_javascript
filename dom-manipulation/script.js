@@ -80,6 +80,7 @@ function addQuote() {
     const newQuote = { category, text };
     quotes.push(newQuote);
     localStorage.setItem("quotes", JSON.stringify(quotes));
+    postQuotesToServer(newQuote);
 
     quoteContainer.innerHTML = '';
 
@@ -210,4 +211,28 @@ async function fetchQuotesFromServer() {
     }));
 
     localStorage.setItem("quotes", JSON.stringify(quotesBody));
+}
+
+async function postQuotesToServer(newQuote) {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newQuote)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+
+        const savedQuote = await response.json();
+        console.log(savedQuote);
+        return savedQuote;
+
+    } catch (error) {
+        console.error("Error saving quote", error);
+    }
 }
